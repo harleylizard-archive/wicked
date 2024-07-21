@@ -1,6 +1,5 @@
 package com.harleylizard.wicked.common.item;
 
-import com.harleylizard.wicked.common.block.BlockCandle;
 import com.harleylizard.wicked.common.block.Color;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +18,7 @@ public final class ItemCandle extends ItemBlockWithMetadata {
 
     @Override
     public String getUnlocalizedName(ItemStack stack) {
-        return "tile.wicked." + Color.values()[BlockCandle.getColor(stack.getMetadata())].getName() + "_candle";
+        return "tile.wicked." + COLORS[stack.getMetadata()].getName() + "_candle";
     }
 
     @Override
@@ -29,7 +28,7 @@ public final class ItemCandle extends ItemBlockWithMetadata {
 
     @Override
     public IIcon getIconFromDamage(int damage) {
-        return icons[BlockCandle.getColor(damage)];
+        return icons[damage];
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.harleylizard.wicked.client;
 
-import com.harleylizard.wicked.common.block.BlockCandle;
 import com.harleylizard.wicked.common.block.Color;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
@@ -25,7 +24,7 @@ public final class ModelCandle implements ISimpleBlockRenderingHandler {
     @Override
     public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
         if (modelId == ID) {
-            models[BlockCandle.getColor(world.getBlockMetadata(x, y, z))].drawWorld(block, world, x, y, z);
+            models[world.getBlockMetadata(x, y, z)].drawWorld(block, world, x, y, z);
             return true;
         }
         return false;
