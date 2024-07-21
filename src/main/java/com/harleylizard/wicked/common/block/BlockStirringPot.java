@@ -1,11 +1,15 @@
 package com.harleylizard.wicked.common.block;
 
 import com.harleylizard.wicked.client.ModelStirringPot;
+import com.harleylizard.wicked.common.tileentity.TileEntityStirringPot;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
-public final class BlockStirringPot extends Block {
+public final class BlockStirringPot extends Block implements ITileEntityProvider {
     public BlockStirringPot() {
         super(Material.iron);
         setStepSound(soundTypeMetal);
@@ -28,5 +32,10 @@ public final class BlockStirringPot extends Block {
     @Override
     public boolean isOpaqueCube() {
         return false;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityStirringPot();
     }
 }

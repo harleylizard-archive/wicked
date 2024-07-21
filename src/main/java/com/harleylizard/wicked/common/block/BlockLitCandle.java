@@ -13,11 +13,32 @@ public final class BlockLitCandle extends BlockCandle {
 
     {
         setLightLevel(0.75F);
+        setTickRandomly(true);
+    }
+
+    @Override
+    public void updateTick(World worldIn, int x, int y, int z, Random random) {
+        if (worldIn.isDaytime() && random.nextInt(25) == 0) {
+            extinguish(worldIn, x, y, z);
+        }
     }
 
     @Override
     public boolean onBlockActivated(World worldIn, int x, int y, int z, EntityPlayer player, int side, float subX, float subY, float subZ) {
+        ItemStack stack = player.getHeldItem();
+        if (stack == null || stack.getItem() == null) {
+            extinguish(worldIn, x, y, z);
+            return true;
+        }
         return false;
+    }
+
+    private void extinguish(World world, int x, int y, int z) {
+        if (!world.isRemote) {
+            int color = world.getBlockMetadata(x, y, z);
+            world.setBlock(x, y, z, WickedBlocks.CANDLE, color, 1 | 2);
+        }
+        world.playSound(x + 0.5F, y, z + 0.5F, "random.fizz", 0.25F, 1.25F, false);
     }
 
     @Override

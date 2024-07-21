@@ -3,12 +3,15 @@ package com.harleylizard.wicked.common;
 import com.harleylizard.wicked.common.block.BlockCandle;
 import com.harleylizard.wicked.common.block.BlockLitCandle;
 import com.harleylizard.wicked.common.block.BlockStirringPot;
+import com.harleylizard.wicked.common.block.BlockPlanks;
+import com.harleylizard.wicked.common.item.ItemBlockWithUnlocalised;
 import com.harleylizard.wicked.common.item.ItemCandle;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
 public final class WickedBlocks {
+    public static Block PLANKS;
     public static Block STIRRING_POT;
     public static Block CANDLE;
     public static Block LIT_CANDLE;
@@ -16,6 +19,7 @@ public final class WickedBlocks {
     private WickedBlocks() {}
 
     public static void registerAll() {
+        registerBlock("planks", ItemBlockWithUnlocalised.class, PLANKS = new BlockPlanks());
         registerBlock("stirring_pot", ItemBlock.class, STIRRING_POT = new BlockStirringPot());
         registerBlock("candle", ItemCandle.class, CANDLE = new BlockCandle());
         registerBlock("lit_candle", null, LIT_CANDLE = new BlockLitCandle());

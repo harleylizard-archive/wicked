@@ -2,6 +2,7 @@ package com.harleylizard.wicked.common;
 
 import com.harleylizard.wicked.common.block.Color;
 import com.harleylizard.wicked.common.message.CreateStirringPotMessage;
+import com.harleylizard.wicked.common.tileentity.TileEntityStirringPot;
 import com.harleylizard.wicked.proxy.Proxy;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -54,6 +55,7 @@ public final class Wicked {
 
         MinecraftForge.EVENT_BUS.register(new Events());
         createRecipes();
+        createTileEntities();
 
         int id = 0;
         NETWORK_WRAPPER.registerMessage(CreateStirringPotMessage.class, CreateStirringPotMessage.class, id++, Side.CLIENT);
@@ -86,6 +88,10 @@ public final class Wicked {
                 GameRegistry.addRecipe(new ItemStack(WickedBlocks.CANDLE, 8, i), "XXX", "XDX", "XXX", 'X', whiteCandle, 'D', ore);
             }
         }
+    }
+
+    private void createTileEntities() {
+        GameRegistry.registerTileEntity(TileEntityStirringPot.class, "stirring_pot");
     }
 
     public static ResourceLocation resourceLocation(String path) {
