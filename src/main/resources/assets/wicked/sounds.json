@@ -1,0 +1,6 @@
+{
+  "block.create_stirring_pot": {
+    "category": "block",
+    "sounds": ["create_stirring_pot"]
+  }
+}

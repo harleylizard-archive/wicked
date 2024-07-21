@@ -1,9 +1,38 @@
+import net.minecraftforge.gradle.common.BaseExtension
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven("http://files.minecraftforge.net/maven") {
+            isAllowInsecureProtocol = true
+            metadataSources {
+                artifact()
+            }
+        }
+        maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    }
+    dependencies {
+        classpath("com.anatawa12.forge:ForgeGradle:1.2-1.1.+") {
+            isChanging = true
+        }
+    }
+}
+
+
 plugins {
     id("java")
 }
 
+apply(plugin = "forge")
+
 group = "com.harleylizard"
 version = "1.0-SNAPSHOT"
+
+project.extensions.getByType(BaseExtension::class.java).apply {
+    version = "1.7.10-10.13.4.1614-1.7.10"
+    runDir = "run"
+    mappings = "stable_12"
+}
 
 repositories {
     mavenCentral()
@@ -16,4 +45,16 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+sourceSets {
+    main {
+        output.setResourcesDir(output.classesDirs.asPath)
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    toolchain.languageVersion.set(JavaLanguageVersion.of(8))
 }

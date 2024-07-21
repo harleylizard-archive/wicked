@@ -7,3 +7,8 @@ This project is welcome to suggestions.
 
 ## Naming
 The name of this project is subject to change. "Wicked" is a general term, and this project isn't related to any media outside of Minecraft.
+
+# Copyright
+This repository is public, all original code and assets are protected under the [LICENSE](https://github.com/harleylizard/wicked?tab=License-1-ov-file).
+
+(c) 2024 harleylizard. All Rights Reserved.
