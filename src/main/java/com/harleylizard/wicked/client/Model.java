@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.harleylizard.wicked.mixin.TextureAtlasSpriteAccessor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -28,10 +29,7 @@ public final class Model implements Iterable<Model.Cube> {
         return cubes.iterator();
     }
 
-    public boolean maybeDraw(boolean inventory) {
-        if (!inventory) {
-            return false;
-        }
+    public void drawInventory() {
         Tessellator tessellator = Tessellator.instance;
         for (Cube cube : this) {
             float fromX = (float) cube.minX / 16.0F - 0.5F;
@@ -53,6 +51,7 @@ public final class Model implements Iterable<Model.Cube> {
             maxU = texture[2];
             maxV = texture[3];
             tessellator.startDrawingQuads();
+            tessellator.setNormal(0.0F, 0.0F, 1.0F);
             tessellator.addVertexWithUV(toX, fromY, fromZ, minU, maxV);
             tessellator.addVertexWithUV(fromX, fromY, fromZ, maxU, maxV);
             tessellator.addVertexWithUV(fromX, toY, fromZ, maxU, minV);
@@ -66,6 +65,7 @@ public final class Model implements Iterable<Model.Cube> {
             maxU = texture[2];
             maxV = texture[3];
             tessellator.startDrawingQuads();
+            tessellator.setNormal(0.0F, 0.0F, -1.0F);
             tessellator.addVertexWithUV(fromX, fromY, toZ, minU, maxV);
             tessellator.addVertexWithUV(toX, fromY, toZ, maxU, maxV);
             tessellator.addVertexWithUV(toX, toY, toZ, maxU, minV);
@@ -79,6 +79,7 @@ public final class Model implements Iterable<Model.Cube> {
             maxU = texture[2];
             maxV = texture[3];
             tessellator.startDrawingQuads();
+            tessellator.setNormal(1.0F, 0.0F, 0.0F);
             tessellator.addVertexWithUV(toX, fromY, toZ, minU, maxV);
             tessellator.addVertexWithUV(toX, fromY, fromZ, maxU, maxV);
             tessellator.addVertexWithUV(toX, toY, fromZ, maxU, minV);
@@ -92,13 +93,13 @@ public final class Model implements Iterable<Model.Cube> {
             maxU = texture[2];
             maxV = texture[3];
             tessellator.startDrawingQuads();
+            tessellator.setNormal(-1.0F, 0.0F, 0.0F);
             tessellator.addVertexWithUV(fromX, fromY, fromZ, minU, maxV);
             tessellator.addVertexWithUV(fromX, fromY, toZ, maxU, maxV);
             tessellator.addVertexWithUV(fromX, toY, toZ, maxU, minV);
             tessellator.addVertexWithUV(fromX, toY, fromZ, minU, minV);
             tessellator.draw();
         }
-        return true;
     }
 
     public static Model fromJson(String json) {
@@ -182,11 +183,11 @@ public final class Model implements Iterable<Model.Cube> {
             this.minV = minV;
             this.maxU=  maxU;
             this.maxV = maxV;
-            this.texture = texture;
+            this.texture = texture.replace("minecraft:", " ").trim();
         }
 
         private IIcon getIcon() {
-            TextureMap textureMap = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture));
+            TextureMap textureMap = getTextureMap();
 
             IIcon missing = textureMap.getAtlasSprite("missingno");
             IIcon icon;
@@ -196,23 +197,28 @@ public final class Model implements Iterable<Model.Cube> {
         private float[] getTexture() {
             IIcon icon = getIcon();
 
-            float width = 512.0F;
-            float height = 512.0F;
-            float normalisedMinU = minU / width;
-            float normalisedMinV = minV / height;
-            float normalisedMaxU = maxU / width;
-            float normalisedMaxV = maxV / height;
+            TextureAtlas textureAtlas = (TextureAtlas) getTextureMap();
+            float width = (float) textureAtlas.getWidth();
+            float height = (float) textureAtlas.getHeight();
 
-            float minU = icon.getMinU();
-            float minV = icon.getMinV();
-            float maxU = icon.getMaxU();
-            float maxV = icon.getMaxV();
+            TextureAtlasSpriteAccessor accessor = (TextureAtlasSpriteAccessor) icon;
+            float x = (float) accessor.getOriginX() / width;
+            float y = (float) accessor.getOriginY() / height;
+            float minU = x;
+            float minV = y;
+            float maxU = x + ((float) this.maxU / width);
+            float maxV = y + ((float) this.maxV / height);
+
             return new float[] {
                     minU,
                     minV,
-                    maxU + normalisedMaxU,
-                    maxV + normalisedMaxV
+                    maxU,
+                    maxV
             };
+        }
+
+        private static TextureMap getTextureMap() {
+            return ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture));
         }
     }
 }

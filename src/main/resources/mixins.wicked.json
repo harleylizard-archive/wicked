@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.harleylizard.wicked.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "TextureAtlasSpriteAccessor",
+    "TextureMapMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "wicked.refmap.json"
+}
