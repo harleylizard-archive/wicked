@@ -10,12 +10,12 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
-public final class BlockPlanks extends Block implements HasUnlocalised {
+public final class BlockWickedPlanks extends Block implements HasUnlocalised {
     private static final Wood[] WOODS = Wood.values();
 
     private final IIcon[] icons = new IIcon[WOODS.length];
 
-    public BlockPlanks() {
+    public BlockWickedPlanks() {
         super(Material.wood);
         setStepSound(soundTypeWood);
         setHardness(2.0F);

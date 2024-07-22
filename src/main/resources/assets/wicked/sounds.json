@@ -2,5 +2,9 @@
   "block.create_stirring_pot": {
     "category": "block",
     "sounds": ["create_stirring_pot"]
+  },
+  "block.water_splash": {
+    "category": "block",
+    "sounds": ["water_splash"]
   }
 }

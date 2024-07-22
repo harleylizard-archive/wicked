@@ -2,7 +2,7 @@ package com.harleylizard.wicked.common;
 
 import com.harleylizard.wicked.common.block.Color;
 import com.harleylizard.wicked.common.message.CreateStirringPotMessage;
-import com.harleylizard.wicked.common.tileentity.TileEntityStirringPot;
+import com.harleylizard.wicked.common.tile.TileStirringPot;
 import com.harleylizard.wicked.proxy.Proxy;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -99,11 +99,15 @@ public final class Wicked {
         OreDictionary.registerOre("stairWood", WickedBlocks.DOGWOOD_STAIRS);
         OreDictionary.registerOre("stairWood", WickedBlocks.HOLLY_STAIRS);
         OreDictionary.registerOre("stairWood", WickedBlocks.LINDEN_STAIRS);
-        OreDictionary.registerOre("slabWood", new ItemStack(WickedBlocks.SLABS, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("slabWood", new ItemStack(WickedBlocks.SLAB, 1, OreDictionary.WILDCARD_VALUE));
+
+        OreDictionary.registerOre("rawMeat", Items.porkchop);
+        OreDictionary.registerOre("rawMeat", Items.beef);
+        OreDictionary.registerOre("rawMeat", WickedItems.RAW_MUTTON);
     }
 
     private void createTileEntities() {
-        GameRegistry.registerTileEntity(TileEntityStirringPot.class, "stirring_pot");
+        GameRegistry.registerTileEntity(TileStirringPot.class, "stirring_pot");
     }
 
     public static ResourceLocation resourceLocation(String path) {

@@ -3,6 +3,7 @@ package com.harleylizard.wicked.common.block;
 import com.harleylizard.wicked.common.WickedBlocks;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -14,9 +15,9 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
-public final class BlockSlabs extends BlockSlab {
+public final class BlockWickedSlab extends BlockSlab {
 
-    public BlockSlabs(boolean doubleSlab) {
+    public BlockWickedSlab(boolean doubleSlab) {
         super(doubleSlab, Material.wood);
         setStepSound(soundTypeWood);
         setHardness(2.0F);
@@ -27,9 +28,9 @@ public final class BlockSlabs extends BlockSlab {
 
     @Override
     public void getSubBlocks(Item itemIn, CreativeTabs tab, List list) {
-        list.add(new ItemStack(WickedBlocks.SLABS, 1, 0));
-        list.add(new ItemStack(WickedBlocks.SLABS, 1, 1));
-        list.add(new ItemStack(WickedBlocks.SLABS, 1, 2));
+        list.add(new ItemStack(WickedBlocks.SLAB, 1, 0));
+        list.add(new ItemStack(WickedBlocks.SLAB, 1, 1));
+        list.add(new ItemStack(WickedBlocks.SLAB, 1, 2));
     }
 
     @Override
@@ -44,11 +45,15 @@ public final class BlockSlabs extends BlockSlab {
 
     @Override
     public Item getItemDropped(int meta, Random random, int fortune) {
-        return Item.getItemFromBlock(WickedBlocks.SLABS);
+        return Item.getItemFromBlock(WickedBlocks.SLAB);
+    }
+
+    @Override
+    public void registerIcons(IIconRegister reg) {
     }
 
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z, EntityPlayer player) {
-        return new ItemStack(WickedBlocks.SLABS, 1, BlockPlanks.clamp(world.getBlockMetadata(x, y, z)));
+        return new ItemStack(WickedBlocks.SLAB, 1, BlockWickedPlanks.clamp(world.getBlockMetadata(x, y, z)));
     }
 }
