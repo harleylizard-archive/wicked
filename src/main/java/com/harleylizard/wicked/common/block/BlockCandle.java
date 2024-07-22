@@ -24,6 +24,7 @@ public class BlockCandle extends Block {
         super(Material.clay);
         setStepSound(soundTypeGravel);
         setBlockBounds(5.0F / 16.0F, 0.0F, 5.0F / 16.0F, 11.0F / 16.0F, 9.0F / 16.0F, 11.0F / 16.0F);
+        setLightOpacity(1);
     }
 
     @Override

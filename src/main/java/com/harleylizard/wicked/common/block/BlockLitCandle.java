@@ -35,8 +35,7 @@ public final class BlockLitCandle extends BlockCandle {
 
     private void extinguish(World world, int x, int y, int z) {
         if (!world.isRemote) {
-            int color = world.getBlockMetadata(x, y, z);
-            world.setBlock(x, y, z, WickedBlocks.CANDLE, color, 1 | 2);
+            world.setBlock(x, y, z, WickedBlocks.CANDLE, world.getBlockMetadata(x, y, z), 1 | 2);
         }
         world.playSound(x + 0.5F, y, z + 0.5F, "random.fizz", 0.25F, 1.25F, false);
     }

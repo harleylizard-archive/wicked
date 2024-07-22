@@ -18,6 +18,9 @@ public final class BlockPlanks extends Block implements HasUnlocalised {
     public BlockPlanks() {
         super(Material.wood);
         setStepSound(soundTypeWood);
+        setHardness(2.0F);
+        setResistance(5.0F);
+        setHarvestLevel("axe", 0);
     }
 
     @Override
@@ -34,9 +37,9 @@ public final class BlockPlanks extends Block implements HasUnlocalised {
 
     @Override
     public void registerIcons(IIconRegister reg) {
-        icons[0] = reg.registerIcon("wicked:" + Wood.DOGWOOD.getName() + "_planks");
-        icons[1] = reg.registerIcon("wicked:" + Wood.HOLLY.getName() + "_planks");
-        icons[2] = reg.registerIcon("wicked:" + Wood.LINDEN.getName() + "_planks");
+        icons[0] = reg.registerIcon("wicked:dogwood_planks");
+        icons[1] = reg.registerIcon("wicked:holly_planks");
+        icons[2] = reg.registerIcon("wicked:linden_planks");
     }
 
     @Override
@@ -49,7 +52,7 @@ public final class BlockPlanks extends Block implements HasUnlocalised {
         return "tile.wicked." + WOODS[clamp(meta)].getName() + "_planks";
     }
 
-    private static int clamp(int i) {
+    public static int clamp(int i) {
         return i & WOODS.length;
     }
 }

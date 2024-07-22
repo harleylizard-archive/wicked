@@ -27,7 +27,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
 
-@Mod(modid = Wicked.MOD_ID, name = Wicked.NAME, version = Wicked.VERSION, acceptedMinecraftVersions = "1.7.10")
+@Mod(modid = Wicked.MOD_ID, name = Wicked.NAME, version = Wicked.VERSION, acceptedMinecraftVersions = "1.7.10", dependencies = "required-after:unimixins@[0.1.17,)")
 public final class Wicked {
     public static final String MOD_ID = "wicked";
     public static final String NAME = "Wicked";
@@ -54,6 +54,7 @@ public final class Wicked {
         WickedItems.registerAll();
 
         MinecraftForge.EVENT_BUS.register(new Events());
+        createOreDictionaries();
         createRecipes();
         createTileEntities();
 
@@ -88,6 +89,17 @@ public final class Wicked {
                 GameRegistry.addRecipe(new ItemStack(WickedBlocks.CANDLE, 8, i), "XXX", "XDX", "XXX", 'X', whiteCandle, 'D', ore);
             }
         }
+        GameRegistry.addShapedRecipe(new ItemStack(WickedBlocks.DOGWOOD_STAIRS, 4, 0), "  X", " XX", "XXX", 'X', new ItemStack(WickedBlocks.PLANKS, 1, 0));
+        GameRegistry.addShapedRecipe(new ItemStack(WickedBlocks.HOLLY_STAIRS, 4, 0), "  X", " XX", "XXX", 'X', new ItemStack(WickedBlocks.PLANKS, 1, 1));
+        GameRegistry.addShapedRecipe(new ItemStack(WickedBlocks.LINDEN_STAIRS, 4, 0), "  X", " XX", "XXX", 'X', new ItemStack(WickedBlocks.PLANKS, 1, 2));
+    }
+
+    private void createOreDictionaries() {
+        OreDictionary.registerOre("plankWood", new ItemStack(WickedBlocks.PLANKS, 1, OreDictionary.WILDCARD_VALUE));
+        OreDictionary.registerOre("stairWood", WickedBlocks.DOGWOOD_STAIRS);
+        OreDictionary.registerOre("stairWood", WickedBlocks.HOLLY_STAIRS);
+        OreDictionary.registerOre("stairWood", WickedBlocks.LINDEN_STAIRS);
+        OreDictionary.registerOre("slabWood", new ItemStack(WickedBlocks.SLABS, 1, OreDictionary.WILDCARD_VALUE));
     }
 
     private void createTileEntities() {
